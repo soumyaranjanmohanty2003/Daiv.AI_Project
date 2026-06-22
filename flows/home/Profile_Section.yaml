@@ -1,0 +1,30 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+# Click on the Profile Section
+- tapOn:
+    point: "37%,8%"
+
+# Click on "Free Plan"
+- tapOn: "Free Plan"
+
+# Tap on "Credits"
+- assertVisible: ".*Total credits remaining.*"
+
+- tapOn: ".*Total credits remaining.*"
+
+- extendedWaitUntil:
+    visible: "Credits"
+    timeout: 5000
+
+# Click the back option thrice to come back to profile page
+- tapOn:
+    point: "7%,9%"
+
+- tapOn:
+    point: "7%,9%"

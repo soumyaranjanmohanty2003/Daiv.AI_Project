@@ -1,0 +1,14 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home" 
+
+# Click on Notification
+- tapOn:
+    point: 89%,8%
+
+
+

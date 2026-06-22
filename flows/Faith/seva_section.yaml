@@ -1,0 +1,37 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+- tapOn: "Faith"
+
+- tapOn: "show_more\nShow More"
+
+- waitForAnimationToEnd
+
+# First card
+- tapOn:
+    point: 9%,33%
+
+# Validate page opened
+- waitForAnimationToEnd
+
+- back
+
+# Small scroll
+- scroll
+
+# Second card now moves into first position
+- tapOn:
+    point: 9%,33%
+
+- scrollUntilVisible:
+    element:
+      text: "Book Seva"
+
+
+
+

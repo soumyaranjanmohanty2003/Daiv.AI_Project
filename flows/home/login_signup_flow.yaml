@@ -1,0 +1,18 @@
+appId: com.daivbharathi.daiv
+---
+
+- runFlow: ../onboardings/select_language_flow.yaml
+
+# check the page of Login/SignUp
+- assertVisible: "Sign Up / Log In"
+
+# Skip the Login for Now
+- tapOn: "I'll do it Later!"
+
+# Wait for Home page
+- extendedWaitUntil:
+    visible: "Home"
+    timeout: 20000cmd
+
+# Assert Home page visible
+- assertVisible: "Home"  

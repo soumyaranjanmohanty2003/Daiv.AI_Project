@@ -1,0 +1,47 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home" 
+
+# Click on Media
+- tapOn: "Media"
+
+- waitForAnimationToEnd
+
+#Verify The Page
+- assertVisible: "Daily Devotion"
+
+#Click on Music
+- tapOn: "Music"
+
+- scroll
+
+#Back
+- back
+
+#Click on Videos
+- tapOn: "Videos"
+
+- scroll
+
+#Back
+- back
+
+
+#Click on Books
+- tapOn: "Books"
+
+- scroll
+
+#Back
+- back
+
+#Scroll until down
+- scroll
+
+#Back to the Home Page
+- tapOn: "Back"
+

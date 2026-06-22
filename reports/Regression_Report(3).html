@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Maestro Regression Report</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background:#f3f4f6;
+    margin:0;
+    padding:25px;
+}
+
+.header {
+    background:linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed
+    );
+    color:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.header h1 {
+    margin:0;
+}
+
+.cards {
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.card {
+    flex:1;
+    min-width:180px;
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover {
+    transform:translateY(-4px);
+}
+
+.card h2 {
+    margin:0;
+}
+
+.section {
+    background:white;
+    margin-top:25px;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.chart-container {
+    width:350px;
+    height:350px;
+    margin:auto;
+}
+
+.progress {
+    width:100%;
+    height:14px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.progress-fill {
+    width:22.22%;
+    height:100%;
+    background:#22c55e;
+}
+
+.badge {
+    padding:5px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+    margin-left:10px;
+}
+
+.pass {
+    background:#22c55e;
+}
+
+.fail {
+    background:#ef4444;
+}
+
+.skip {
+    background:#f59e0b;
+}
+
+summary {
+    cursor:pointer;
+    padding:12px;
+    font-size:15px;
+    background:#f9fafb;
+    border-radius:10px;
+}
+
+details {
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:10px;
+}
+
+pre {
+    background:#111827;
+    color:#e5e7eb;
+    padding:15px;
+    border-radius:12px;
+    overflow:auto;
+    max-height:300px;
+    white-space:pre-wrap;
+}
+
+button {
+    background:#4f46e5;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px 24px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover {
+    opacity:.9;
+}
+
+.download {
+    text-align:center;
+    margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="reportContent">
+
+<div class="header">
+    <h1>📱 Maestro Regression Report</h1>
+    <p>Automation Execution Summary</p>
+    <p>
+        Generated On:
+        11-Jun-2026 11:00:21 AM
+    </p>
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <h2>9</h2>
+        <p>Total Tests</p>
+    </div>
+
+    <div class="card">
+        <h2 style="color:#22c55e">2</h2>
+        <p>Passed</p>
+    </div>
+
+    <div class="card">
+        <h2 style="color:#ef4444">7</h2>
+        <p>Failed</p>
+    </div>
+
+    <div class="card">
+        <h2 style="color:#f59e0b">0</h2>
+        <p>Skipped</p>
+    </div>
+
+    <div class="card">
+        <h2>22.22%</h2>
+        <p>Pass Rate</p>
+    </div>
+
+</div>
+
+<div class="progress">
+    <div class="progress-fill"></div>
+</div>
+
+<div class="section">
+
+    <h2>📊 Execution Summary</h2>
+
+    <div class="chart-container">
+        <canvas id="resultChart"></canvas>
+    </div>
+
+</div>
+
+<div class="section">
+
+    <h2>🧪 Test Details</h2>
+
+    
+    <details>
+        <summary>
+            <b>Add_Guruji_Section.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 58.87 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Add_Guruji_Section
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+Tap on "Astro"... COMPLETED
+Tap on "Guru"... COMPLETED
+Tap on "Add My Guruji"... FAILED
+
+Element not found: Text matching regex: Add My Guruji
+
+Element with Text matching regex: Add My Guruji not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_104848
+??????????????????????????????????????????????????????????????????????????????????????????????????
+?                                                                                                ?
+?   Debug tests faster by easy access to test recordings, maestro logs, screenshots, and more.   ?
+?                                                                                                ?
+?   Run your flows on Maestro Cloud:                                                             ?
+?   maestro cloud app_file flows_folder/                                                         ?
+?                                                                                                ?
+??????????????????????????????????????????????????????????????????????????????????????????????????
+
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Check_Added_Guru.yaml</b>
+            <span class="badge pass">
+                PASS
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 35.83 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Check_Added_Guru
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Guru_Plan_Section.yaml</b>
+            <span class="badge pass">
+                PASS
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 39.1 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Guru_Plan_Section
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+Tap on "Astro"... COMPLETED
+Tap on "Plans"... COMPLETED
+Scroll vertically... COMPLETED
+Tap on "Back"... COMPLETED
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>login_signup_flow.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 55.32 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow login_signup_flow
+Run ../onboardings/select_language_flow.yaml...
+  Launch app "com.daivbharathi.daiv"... COMPLETED
+  Wait for animation to end... COMPLETED
+  Tap on "English"... FAILED
+Run ../onboardings/select_language_flow.yaml... FAILED
+
+Element not found: Text matching regex: English
+
+Element with Text matching regex: English not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_105101
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Media_Community_Section.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 67.96 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Media_Community_Section
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+Tap on "Media"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Daily Devotion" is visible... FAILED
+
+Assertion is false: "Daily Devotion" is visible
+
+Assertion '"Daily Devotion" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_105156
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Media_Library_Section.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 37.82 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Media_Library_Section
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... FAILED
+
+Assertion is false: "Home" is visible
+
+Assertion '"Home" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_105304
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Notification_Section.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 131.45 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Notification_Section
+Launch app "com.daivbharathi.daiv"... FAILED
+
+Unable to launch app com.daivbharathi.daiv
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_105342
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Profile_Section.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 209.05 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+
+You have 0 devices connected, which is not enough to run 1 shards. Missing 1 device(s).
+
+
+
+STDERR:
+Not enough devices connected (0) to run the requested number of shards (1).
+
+        </pre>
+
+    </details>
+    <br>
+    
+    <details>
+        <summary>
+            <b>Punchang_Details_And_Rashi.yaml</b>
+            <span class="badge fail">
+                FAIL
+            </span>
+        </summary>
+
+        <p><b>Duration:</b> 61.32 sec</p>
+
+        <h4>Execution Logs</h4>
+
+        <pre>
+STDOUT:
+Running on MF8PS47L65X8EEWC
+ > Flow Punchang_Details_And_Rashi
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+Tap on "Astro"... COMPLETED
+Assert that "Select your Rashi" is visible... COMPLETED
+Tap on "Aries"... COMPLETED
+Wait for animation to end... COMPLETED
+Tap on "View Details"... FAILED
+
+Element not found: Text matching regex: View Details
+
+Element with Text matching regex: View Details not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+C:\Users\soumy\.maestro\tests\2026-06-11_105922
+
+
+STDERR:
+
+        </pre>
+
+    </details>
+    <br>
+    
+
+</div>
+
+</div>
+
+<div class="download">
+    <button onclick="downloadPDF()">
+        Download PDF
+    </button>
+</div>
+
+<script>
+
+const ctx = document.getElementById('resultChart');
+
+new Chart(ctx, {
+
+    type: 'doughnut',
+
+    data: {
+
+        labels: ['Passed', 'Failed', 'Skipped'],
+
+        datasets: [{
+            data: [2, 7, 0],
+            backgroundColor: [
+                '#22c55e',
+                '#ef4444',
+                '#f59e0b'
+            ],
+            borderWidth: 0
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+function downloadPDF() {
+
+    document
+        .querySelectorAll('details')
+        .forEach(x => x.open = true);
+
+    html2pdf()
+        .from(document.getElementById('reportContent'))
+        .save('Regression_Report.pdf');
+}
+
+</script>
+
+</body>
+</html>

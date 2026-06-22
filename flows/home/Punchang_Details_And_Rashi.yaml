@@ -1,0 +1,304 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+# Verify Astro section
+- tapOn: "Astro"
+
+# --------Verify "Aries" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Verify "Aries" Rashi
+- tapOn: "Aries"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+# ---------Verify "Taurus" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Taurus"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+#---------Verify "Temini" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Temini"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Cancer" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Cancer"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+#---------Verify "Leo" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Leo"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Virgo" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Virgo"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Libra" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Libra"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Scorpio" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Scorpio"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+#---------Verify "Sagittarius" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Sagittarius"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Capricorn" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Capricorn"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Aquarius" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Aquarius"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"
+
+
+
+#---------Verify "Pisces" Rashi----------
+#verify the "Select Your Rashi" text
+- assertVisible: "Select your Rashi"
+
+# Click on Rashi
+- tapOn: "Pisces"
+
+- waitForAnimationToEnd
+
+# Click View Details
+- tapOn: "View Details"
+
+- extendedWaitUntil:
+    visible: "Astro Details"
+    timeout: 5000
+
+# Back to the Punchang section 
+- tapOn:
+    point: "6%,8%"
+
+#verify the "Select Your Rashi" text Again
+- assertVisible: "Select your Rashi"

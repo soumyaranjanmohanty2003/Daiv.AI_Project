@@ -1,0 +1,18 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+# Verify Astro section
+- tapOn: "Astro"
+
+# Click on the Plan Section
+- tapOn: "Plans"
+
+- scroll
+
+- tapOn: "Back"
+ 

@@ -1,0 +1,23 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home" 
+
+# Click on Media
+- tapOn: "Media"
+
+- waitForAnimationToEnd
+
+#Verify The Page
+- assertVisible: "Daily Devotion"
+
+#Click on Community
+- tapOn: "Community"
+
+- scroll
+
+#Back
+- tapOn: "Back"

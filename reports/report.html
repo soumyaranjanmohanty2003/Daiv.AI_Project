@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Maestro Report</title>
+
+<style>
+
+body {
+    font-family: Arial;
+    margin: 30px;
+}
+
+h1 {
+    color: #333;
+}
+
+.pass {
+    color: green;
+    font-weight: bold;
+}
+
+.fail {
+    color: red;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+pre {
+    background: #f5f5f5;
+    padding: 15px;
+    overflow-x: auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Maestro Automation Report</h1>
+
+<table>
+
+<tr>
+    <th>YAML File</th>
+    <th>Status</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+</tr>
+
+<tr>
+    <td>flows/home/Guru_Plan_Section.yaml</td>
+    <td class="pass">
+        PASS
+    </td>
+    <td>2026-06-09 12:41:44.073671</td>
+    <td>2026-06-09 12:42:19.204355</td>
+</tr>
+
+</table>
+
+<h2>Execution Logs</h2>
+
+<pre>
+Running on MF8PS47L65X8EEWC
+ > Flow Guru_Plan_Section
+Launch app "com.daivbharathi.daiv"... COMPLETED
+Wait for animation to end... COMPLETED
+Assert that "Home" is visible... COMPLETED
+Tap on "Astro"... COMPLETED
+Tap on "Plans"... COMPLETED
+Scroll vertically... COMPLETED
+Tap on "Back"... COMPLETED
+
+
+
+</pre>
+
+</body>
+</html>

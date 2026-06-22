@@ -1,0 +1,16 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Select language
+- tapOn: "English"
+
+# Click continue
+- tapOn: "Continue"
+
+# Click on the Skip
+- tapOn: "Skip"
+
+# Click  on Let's Start
+- tapOn: "Let's Start"

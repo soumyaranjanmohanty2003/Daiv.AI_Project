@@ -1,0 +1,26 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+- tapOn: "Faith"
+
+- scroll
+
+- tapOn: "Temple Seva"
+
+- tapOn: "Abhishekam"
+
+- tapOn: "Show Result"
+
+- tapOn: "Deities"
+
+- tapOn: "Shiva"
+
+- tapOn: "Show Result"
+
+
+

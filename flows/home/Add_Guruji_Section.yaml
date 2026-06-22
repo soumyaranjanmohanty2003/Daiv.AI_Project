@@ -1,0 +1,58 @@
+appId: com.daivbharathi.daiv
+---
+- launchApp
+- waitForAnimationToEnd
+
+# Assert Home page visible
+- assertVisible: "Home"  
+
+# Verify Astro section
+- tapOn: "Astro"
+
+# Verify Guru section
+- tapOn: "Guru"
+
+# Add Guruji
+- tapOn: "Add My Guruji"
+
+# -----------Select Date of Birth---------
+- tapOn: "Date of Birth*\nDD/MM/YYYY"
+
+# Click on Edit Icon
+- tapOn:
+    point: "86%,30%"
+    
+
+# Clear existing value if needed
+- eraseText
+
+# Type DOB
+- inputText: "04/13/2003"
+
+# Confirm
+- tapOn: "OK"
+
+
+# -------------Click Time of Birth------------ Choosing Random time
+- tapOn: "Time of Birth*\n00:00 am/pm"
+
+# Confirm
+- tapOn: "OK"
+
+# -------------Type the Place of birth---------
+- tapOn: "Place of Birth*\nEnter"
+- inputText: "Bangalore"
+
+# Press BACK to close the Keyboard
+- pressKey: BACK
+
+#Scroll to Down
+- swipe:
+    start: "50%,80%"
+    end: "50%,30%"
+
+- waitForAnimationToEnd
+
+- tapOn: "Male"
+
+#- tapOn: "Confirm"
