@@ -79,14 +79,12 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-
+    # Uses the Python already installed on the runner (python3/python on PATH).
+    # setup-python was removed: it needs admin registry access on self-hosted
+    # Windows runners. Requires Python >= 3.9 preinstalled.
     - name: Install self-healing tool dependencies
       shell: bash
-      run: pip install -q -r "${{ github.action_path }}/requirements.txt"
+      run: python -m pip install -q -r "${{ github.action_path }}/requirements.txt" || python3 -m pip install -q -r "${{ github.action_path }}/requirements.txt"
 
     - name: Install Maestro CLI
       if: inputs.install-maestro == 'true'
