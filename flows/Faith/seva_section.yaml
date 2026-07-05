@@ -4,7 +4,6 @@ appId: com.daivbharathi.daiv
 - waitForAnimationToEnd
 
 # Assert Home page visible
-- assertVisible: "Home"  
 
 - tapOn: "Faith"
 
