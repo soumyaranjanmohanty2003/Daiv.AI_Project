@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import os
 import shlex
+import shutil
 import subprocess
 import time
 from dataclasses import dataclass, field
@@ -37,7 +38,10 @@ class MaestroRunner:
         )
         debug_dir.mkdir(parents=True, exist_ok=True)
 
-        cmd = [self.cfg.maestro_bin, "test", flow_path, "--debug-output", str(debug_dir)]
+        # Resolve the binary via PATH (handles maestro.bat / maestro.cmd on
+        # Windows, which subprocess would not find by bare name).
+        maestro_bin = shutil.which(self.cfg.maestro_bin) or self.cfg.maestro_bin
+        cmd = [maestro_bin, "test", flow_path, "--debug-output", str(debug_dir)]
         if self.cfg.maestro_extra_args:
             cmd.extend(shlex.split(self.cfg.maestro_extra_args))
 
