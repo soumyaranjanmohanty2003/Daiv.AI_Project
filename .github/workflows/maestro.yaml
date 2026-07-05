@@ -1,0 +1,92 @@
+name: Maestro Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      flow_path:
+        description: "Maestro flow file or folder to run"
+        required: true
+        default: "flows"
+      app_id:
+        description: "Android app id expected by the flows"
+        required: true
+        default: "com.daivbharathi.daiv"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "flows/**/*.yaml"
+      - "run_test.py"
+      - "run_all_tests.py"
+      - ".github/workflows/maestro.yaml"
+  pull_request:
+    paths:
+      - "flows/**/*.yaml"
+      - "run_test.py"
+      - "run_all_tests.py"
+      - ".github/workflows/maestro.yaml"
+
+jobs:
+  maestro:
+    name: Run Maestro flows
+    runs-on:
+      - self-hosted
+      - Windows
+    timeout-minutes: 45
+
+    env:
+      FLOW_PATH: ${{ github.event.inputs.flow_path || 'flows' }}
+      APP_ID: ${{ github.event.inputs.app_id || 'com.daivbharathi.daiv' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Maestro is installed
+        shell: powershell
+        run: |
+          if (-not (Get-Command maestro -ErrorAction SilentlyContinue)) {
+            throw "Maestro is not installed or not available in PATH on this self-hosted runner."
+          }
+          maestro --version
+
+      - name: Verify Android device is connected
+        shell: powershell
+        run: |
+          if (-not (Get-Command adb -ErrorAction SilentlyContinue)) {
+            throw "adb is not installed or not available in PATH on this self-hosted runner."
+          }
+
+          adb devices
+          $devices = adb devices | Select-String -Pattern "`tdevice$"
+          if (-not $devices) {
+            throw "No Android device/emulator is connected."
+          }
+
+      - name: Verify app is installed
+        shell: powershell
+        run: |
+          adb shell pm path $env:APP_ID
+          if ($LASTEXITCODE -ne 0) {
+            throw "App '$env:APP_ID' is not installed on the connected device."
+          }
+
+      - name: Run Maestro tests
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path reports | Out-Null
+          maestro test $env:FLOW_PATH 2>&1 | Tee-Object -FilePath reports\maestro-output.log
+          if ($LASTEXITCODE -ne 0) {
+            throw "Maestro tests failed with exit code $LASTEXITCODE."
+          }
+
+      - name: Upload Maestro reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-reports
+          path: |
+            reports/**
+            ~/.maestro/tests/**
+          if-no-files-found: ignore
