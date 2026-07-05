@@ -31,8 +31,8 @@ appId: com.daivbharathi.daiv
     point: 9%,33%
 
 - scrollUntilVisible:
-    element:
-      text: "Book Seva"
+    element: "Book Seva\nBook Seva"
+
 
 
 
