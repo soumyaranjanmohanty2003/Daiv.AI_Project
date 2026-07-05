@@ -1,0 +1,161 @@
+name: "Maestro Self-Healing Tests"
+description: >
+  Runs Maestro flows; on failure, uses Groq to diagnose and fix the flow YAML,
+  re-runs to verify, and opens a PR with the fix (never pushes directly).
+author: "Soumya"
+branding:
+  icon: "activity"
+  color: "green"
+
+inputs:
+  flows:
+    description: "Flow files, globs, or directories (space-separated), e.g. '.maestro/'"
+    required: true
+  groq-api-key:
+    description: "Groq API key (store as a repo secret)"
+    required: true
+  groq-model:
+    description: "Groq model to use"
+    required: false
+    default: "llama-3.3-70b-versatile"
+  max-heal-attempts:
+    description: "Max fix attempts per failing flow"
+    required: false
+    default: "3"
+  min-confidence:
+    description: "Minimum model confidence (0-1) to apply a fix"
+    required: false
+    default: "0.5"
+  maestro-timeout:
+    description: "Per-flow timeout in seconds"
+    required: false
+    default: "900"
+  maestro-extra-args:
+    description: "Extra args passed to 'maestro test'"
+    required: false
+    default: ""
+  install-maestro:
+    description: "Install Maestro CLI automatically ('true'/'false')"
+    required: false
+    default: "false"
+  dry-run:
+    description: "Propose fixes without applying them"
+    required: false
+    default: "false"
+  create-pr:
+    description: "Open a PR when flows are healed"
+    required: false
+    default: "true"
+  github-token:
+    description: "Token used to create the PR"
+    required: false
+    default: ${{ github.token }}
+  pr-branch:
+    description: "Branch name for the fix PR"
+    required: false
+    default: "selfheal/maestro-fixes-${{ github.run_id }}"
+  base-branch:
+    description: "Base branch for the PR (defaults to the current branch)"
+    required: false
+    default: ""
+
+outputs:
+  any_healed:
+    description: "true if at least one flow was auto-healed"
+    value: ${{ steps.selfheal.outputs.any_healed }}
+  all_passed:
+    description: "true if every flow passes (originally or after healing)"
+    value: ${{ steps.selfheal.outputs.all_passed }}
+  healed_files:
+    description: "Newline-separated list of healed flow files"
+    value: ${{ steps.selfheal.outputs.healed_files }}
+  failing_files:
+    description: "Newline-separated list of flows still failing"
+    value: ${{ steps.selfheal.outputs.failing_files }}
+  pr-url:
+    description: "URL of the created PR (if any)"
+    value: ${{ steps.create-pr.outputs.pull-request-url }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install self-healing tool dependencies
+      shell: bash
+      run: pip install -q -r "${{ github.action_path }}/requirements.txt"
+
+    - name: Install Maestro CLI
+      if: inputs.install-maestro == 'true'
+      shell: bash
+      run: |
+        curl -fsSL "https://get.maestro.mobile.dev" | bash
+        echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+    - name: Run flows with self-healing
+      id: selfheal
+      shell: bash
+      env:
+        GROQ_API_KEY: ${{ inputs.groq-api-key }}
+        GROQ_MODEL: ${{ inputs.groq-model }}
+        MAX_HEAL_ATTEMPTS: ${{ inputs.max-heal-attempts }}
+        MIN_CONFIDENCE: ${{ inputs.min-confidence }}
+        MAESTRO_TIMEOUT_S: ${{ inputs.maestro-timeout }}
+        MAESTRO_EXTRA_ARGS: ${{ inputs.maestro-extra-args }}
+        DRY_RUN: ${{ inputs.dry-run }}
+        PYTHONPATH: ${{ github.action_path }}
+      run: |
+        set -o pipefail
+        python -m selfheal ${{ inputs.flows }} --verbose || SELFHEAL_EXIT=$?
+        echo "exit_code=${SELFHEAL_EXIT:-0}" >> "$GITHUB_OUTPUT"
+
+    - name: Upload Maestro debug artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: maestro-selfheal-debug-${{ github.run_id }}
+        path: |
+          .selfheal/debug
+          .selfheal/report.md
+        if-no-files-found: ignore
+        retention-days: 7
+
+    - name: Read report for PR body
+      id: report
+      if: steps.selfheal.outputs.any_healed == 'true' && inputs.create-pr == 'true' && inputs.dry-run != 'true'
+      shell: bash
+      run: |
+        {
+          echo "body<<SELFHEAL_PR_EOF"
+          cat .selfheal/report.md
+          echo "SELFHEAL_PR_EOF"
+        } >> "$GITHUB_OUTPUT"
+
+    - name: Create pull request with fixes
+      id: create-pr
+      if: steps.selfheal.outputs.any_healed == 'true' && inputs.create-pr == 'true' && inputs.dry-run != 'true'
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ inputs.github-token }}
+        branch: ${{ inputs.pr-branch }}
+        base: ${{ inputs.base-branch }}
+        add-paths: |
+          **/*.yaml
+          **/*.yml
+        commit-message: "fix(maestro): auto-heal failing flows [selfheal]"
+        title: "🩹 Auto-heal Maestro flows (${{ github.workflow }} #${{ github.run_number }})"
+        body: ${{ steps.report.outputs.body }}
+        labels: |
+          selfheal
+          automated-pr
+        delete-branch: true
+
+    - name: Fail job if unhealed flows remain
+      if: steps.selfheal.outputs.all_passed != 'true'
+      shell: bash
+      run: |
+        echo "::error::Some Maestro flows are still failing after self-healing. See the report artifact."
+        exit 1

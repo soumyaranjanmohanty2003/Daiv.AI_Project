@@ -1,0 +1,63 @@
+# Example caller workflow. Copy to .github/workflows/ in the repo that owns the app + flows.
+name: Maestro E2E (self-healing)
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *" # nightly
+
+permissions:
+  contents: write # create fix branch
+  pull-requests: write # open fix PR
+
+concurrency:
+  group: maestro-selfheal-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Bring up your app/emulator here (example: Android) ---
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+
+      - name: Run Maestro flows with self-healing
+        id: maestro
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          script: |
+            # Install your app first, e.g.:
+            # adb install app/build/outputs/apk/debug/app-debug.apk
+            echo "emulator ready"
+
+      # If the action lives in ITS OWN repo, reference it as:
+      #   uses: <your-org>/maestro-self-healing@v1
+      # If vendored inside this repo:
+      #   uses: ./maestro-self-healing
+      - name: Self-healing Maestro run
+        id: selfheal
+        uses: your-org/maestro-self-healing@v1
+        with:
+          flows: ".maestro/"
+          groq-api-key: ${{ secrets.GROQ_API_KEY }}
+          install-maestro: "true"
+          max-heal-attempts: "3"
+          min-confidence: "0.6"
+          # PR is only opened when a fix actually made the test pass:
+          create-pr: "true"
+          base-branch: ${{ github.head_ref || github.ref_name }}
+
+      - name: Show result
+        if: always()
+        run: |
+          echo "Healed: ${{ steps.selfheal.outputs.healed_files }}"
+          echo "PR: ${{ steps.selfheal.outputs.pr-url }}"
